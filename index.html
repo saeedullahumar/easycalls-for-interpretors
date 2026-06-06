@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CallFree — Instant Call Alerts for Remote Interpreters</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;1,300&family=DM+Sans:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --ink: #0f0e0c;
+            --paper: #f5f0e8;
+            --accent: #d4521a;
+            --muted: #7a7265;
+            --card: #ede8de;
+            --border: #c8bfad;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            border-bottom: 1.5px solid var(--border);
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .badge {
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 760px;
+            margin: 6rem auto 4rem;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+        }
+
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.4rem;
+            letter-spacing: -1px;
+        }
+
+        h1 em {
+            font-style: italic;
+            font-weight: 300;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 540px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--ink);
+            color: var(--paper);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.9rem 2.2rem;
+            border-radius: 3px;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .cta-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* PROBLEM STRIP */
+        .problem {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 4.5rem 2rem;
+            text-align: center;
+        }
+
+        .problem-inner {
+            max-width: 660px;
+            margin: 0 auto;
+        }
+
+        .problem h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.3rem, 3vw, 1.9rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            color: var(--paper);
+        }
+
+        .problem p {
+            font-size: 0.97rem;
+            color: #b0a898;
+            line-height: 1.8;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* SECTIONS */
+        section {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        /* VIDEO */
+        .video-section {
+            background: var(--card);
+            border-top: 1.5px solid var(--border);
+            border-bottom: 1.5px solid var(--border);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .video-section .section-label {
+            margin-bottom: 0.6rem;
+        }
+
+        .video-section h2 {
+            margin-bottom: 0.8rem;
+        }
+
+        .video-section p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .video-wrapper {
+            max-width: 740px;
+            margin: 0 auto;
+            aspect-ratio: 16/9;
+            background: #1a1814;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* PASTE YOUR YOUTUBE/GOOGLE DRIVE EMBED CODE INSIDE .video-wrapper below */
+        .video-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            color: #5a554e;
+        }
+
+        .video-placeholder svg {
+            opacity: 0.4;
+        }
+
+        .video-placeholder span {
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* HOW IT WORKS */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .step {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            padding: 2rem 1.6rem;
+        }
+
+        .step-num {
+            font-family: 'Fraunces', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.8rem;
+        }
+
+        .step h3 {
+            font-size: 0.97rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* BENEFITS */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        @media(max-width:540px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .benefit {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1.6rem;
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .benefit-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .benefit h4 {
+            font-size: 0.93rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .benefit p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* PLATFORMS */
+        .platforms {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1.5px solid var(--border);
+        }
+
+        .platforms p {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 1.2rem;
+        }
+
+        .platform-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+        }
+
+        .platform-tags span {
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 3px;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.83rem;
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        /* DIVIDER */
+        .divider {
+            border: none;
+            border-top: 1.5px solid var(--border);
+            margin: 0 2rem;
+        }
+
+        /* PRICING */
+        .pricing-wrap {
+            text-align: center;
+        }
+
+        .price-card {
+            display: inline-block;
+            background: var(--ink);
+            color: var(--paper);
+            border-radius: 8px;
+            padding: 2.8rem 3rem;
+            min-width: 300px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .price-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #a09880;
+            margin-bottom: 0.8rem;
+        }
+
+        .price-amount {
+            font-family: 'Fraunces', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .price-period {
+            font-size: 0.85rem;
+            color: #a09880;
+            margin-bottom: 1.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .price-perks {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .price-perks li {
+            font-size: 0.88rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #2a2820;
+            color: #ccc5b5;
+        }
+
+        .price-perks li::before {
+            content: "✓  ";
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .price-cta {
+            display: block;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.9rem 1.8rem;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: opacity 0.2s;
+        }
+
+        .price-cta:hover {
+            opacity: 0.88;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1.5px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero>* {
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .hero>*:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .hero>*:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .hero>*:nth-child(3) {
+            animation-delay: 0.25s;
+        }
+
+        .hero>*:nth-child(4) {
+            animation-delay: 0.35s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Call<span>Free</span></div>
+        <div class="badge">For Remote Interpreters</div>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-eyebrow">A smarter way to work</div>
+        <h1>Stop waiting.<br /><em>Start living.</em></h1>
+        <p class="hero-sub">
+            Interpreters lose hours every day to passive screen-watching — not because calls are constant, but because
+            missing one is costly. CallFree delivers real-time call alerts directly to your phone, so your attention is
+            no longer held hostage by your laptop.
+        </p>
+        <a href="#contact" class="cta-btn">Get Started →</a>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="problem">
+        <div class="problem-inner">
+            <h2>"I wasn't unproductive — I was just afraid to move away from my screen."</h2>
+            <p>
+                Most interpreters don't miss calls because they're careless. They miss them because the platforms they
+                work on offer no way to step away with confidence. The result is a workday built around anxiety rather
+                than efficiency — hours spent waiting in front of a screen instead of being genuinely available when it
+                matters.
+            </p>
+        </div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="video-section">
+        <div class="section-label">See it in action</div>
+        <h2>Watch how it works</h2>
+        <p>A quick walkthrough of the alert system — from setup to your first notification.</p>
+        <div class="video-wrapper">
+            <!--
+      REPLACE THIS COMMENT WITH YOUR EMBED CODE.
+      For YouTube (unlisted): Share → Embed → copy the <iframe> tag and paste here.
+      For Google Drive: File → Share → Get link → then use:
+        <iframe src="https://drive.google.com/file/d/YOUR_FILE_ID/preview" width="100%" height="100%" allow="autoplay"></iframe>
+    -->
+            <div class="video-placeholder">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none" />
+                </svg>
+                <span>Demo video coming soon</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section>
+        <div class="section-label">How it works</div>
+        <h2>Straightforward setup.<br />Immediate results.</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">01</div>
+                <h3>One-time configuration</h3>
+                <p>The setup is handled for you entirely. No technical background is required — you simply confirm it is
+                    working and you are done.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <h3>Continuous monitoring</h3>
+                <p>A lightweight script runs quietly in your browser, watching for incoming calls on your interpreting
+                    platform in real time.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <h3>Instant phone notification</h3>
+                <p>The moment a call is detected, an alert reaches your phone — giving you enough time to return and
+                    accept before it passes.</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- BENEFITS -->
+    <section>
+        <div class="section-label">What changes for you</div>
+        <h2>Reclaim your time<br />between assignments.</h2>
+        <div class="benefits-grid">
+            <div class="benefit">
+                <div class="benefit-icon">🔔</div>
+                <div>
+                    <h4>Real-time alerts, zero delay</h4>
+                    <p>Notifications are triggered the moment a call arrives — not on a timed refresh. You respond
+                        faster, not slower.</p>
+                </div>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">📱</div>
+                <div>
+                    <h4>Your phone becomes your monitor</h4>
+                    <p>Step away from your desk with confidence. Whether you are in another room or taking a break, you
+                        will know immediately.</p>
+                </div>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">🧘</div>
+                <div>
+                    <h4>Reduced mental load</h4>
+                    <p>The constant low-level stress of watching a screen disappears. You are available without being
+                        captive.</p>
+                </div>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">⚙️</div>
+                <div>
+                    <h4>Runs silently in the background</h4>
+                    <p>Once configured, there is nothing to manage. The system operates independently for as long as
+                        your browser session is active.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLATFORMS -->
+    <div class="platforms">
+        <p>Compatible with major interpreting platforms</p>
+        <div class="platform-tags">
+            <span>TransPerfect LiveCast</span>
+            <span>LanguageLine</span>
+            <span>Voiance</span>
+            <span>KUDO</span>
+            <span>Interprefy</span>
+            <span>+ others on request</span>
+        </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- PRICING -->
+    <section class="pricing-wrap" id="contact">
+        <div class="section-label">Get set up</div>
+        <h2>One setup. Lasting freedom.</h2>
+        <div class="price-card">
+            <div class="price-label">One-time setup fee</div>
+            <div class="price-amount">Message Me</div>
+            <div class="price-period">for availability and pricing</div>
+            <ul class="price-perks">
+                <li>Full remote setup — handled for you</li>
+                <li>Works on any smartphone</li>
+                <li>Real-time browser-based detection</li>
+                <li>Compatible with multiple platforms</li>
+                <li>Post-setup support included</li>
+            </ul>
+            <a href="https://wa.me/923155953856" class="price-cta">Contact via WhatsApp →</a>
+        </div>
+    </section>
+
+    <footer>
+        Built by an interpreter, for interpreters.<br />
+        Compatible with most browser-based interpreting platforms. Not affiliated with any platform provider.
+    </footer>
+
+</body>
+
+</html>
