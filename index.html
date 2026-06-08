@@ -211,30 +211,15 @@
             background: #1a1814;
             border-radius: 8px;
             border: 1.5px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
             position: relative;
         }
 
-        /* PASTE YOUR YOUTUBE/GOOGLE DRIVE EMBED CODE INSIDE .video-wrapper below */
-        .video-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            color: #5a554e;
-        }
-
-        .video-placeholder svg {
-            opacity: 0.4;
-        }
-
-        .video-placeholder span {
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
         }
 
         /* HOW IT WORKS */
@@ -508,19 +493,13 @@
         <h2>Watch how it works</h2>
         <p>A quick walkthrough of the alert system — from setup to your first notification.</p>
         <div class="video-wrapper">
-            <!--
-      REPLACE THIS COMMENT WITH YOUR EMBED CODE.
-      For YouTube (unlisted): Share → Embed → copy the <iframe> tag and paste here.
-      For Google Drive: File → Share → Get link → then use:
-        <iframe src="https://drive.google.com/file/d/YOUR_FILE_ID/preview" width="100%" height="100%" allow="autoplay"></iframe>
-    -->
-            <div class="video-placeholder">
-                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                    <circle cx="12" cy="12" r="10" />
-                    <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none" />
-                </svg>
-                <span>Demo video coming soon</span>
-            </div>
+            <iframe
+                src="https://drive.google.com/file/d/1Is_05iH4ycOyuC1r-_BEM6X9JBP1JP_L/preview"
+                width="100%"
+                height="100%"
+                allow="autoplay"
+                allowfullscreen>
+            </iframe>
         </div>
     </div>
 
